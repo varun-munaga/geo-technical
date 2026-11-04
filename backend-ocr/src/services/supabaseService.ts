@@ -6,17 +6,24 @@ export class SupabaseService {
   private client: SupabaseClient | null = null;
 
   constructor() {
-    if (config.supabase.url && (config.supabase.serviceRoleKey || config.supabase.anonKey)) {
-      this.client = createClient(
-        config.supabase.url,
-        config.supabase.serviceRoleKey || config.supabase.anonKey,
-        {
+    try {
+      const url = config.supabase.url;
+      const key = config.supabase.serviceRoleKey || config.supabase.anonKey;
+
+      if (url && key && /^https?:\/\//i.test(url)) {
+        this.client = createClient(url, key, {
           auth: {
             persistSession: false,
             autoRefreshToken: false,
           },
-        }
-      );
+        });
+        console.log(`[SupabaseService] Successfully initialized Supabase client at: ${url}`);
+      } else {
+        console.warn(`[SupabaseService] Warning: Client not initialized. Valid URL: ${/^https?:\/\//i.test(url)}, Key present: ${Boolean(key)}`);
+      }
+    } catch (err: any) {
+      console.error(`[SupabaseService] Exception during Supabase initialization:`, err?.message || err);
+      this.client = null;
     }
   }
 

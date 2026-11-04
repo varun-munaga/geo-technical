@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { config } from './config.js';
 import { apiRouter } from './routes/apiRoutes.js';
+import { supabaseService } from './services/supabaseService.js';
 
 const app = express();
 
@@ -25,11 +26,13 @@ app.get('/', (_req, res) => {
   });
 });
 
-app.listen(config.port, () => {
+app.listen(config.port, '0.0.0.0', () => {
   console.log(`=======================================================`);
-  console.log(`🚀 Geotechnical OCR & Excel Service listening on port ${config.port}`);
+  console.log(`🚀 Geotechnical OCR & Excel Service listening on 0.0.0.0:${config.port}`);
   console.log(`📊 Mode: ${config.nodeEnv}`);
-  console.log(`📡 Health Check: http://localhost:${config.port}/api/health`);
+  console.log(`📡 Supabase Endpoint: ${config.supabase.url}`);
+  console.log(`📡 Supabase Client Ready: ${Boolean(supabaseService.getClient())}`);
+  console.log(`📡 Health Check: http://0.0.0.0:${config.port}/api/health`);
   console.log(`=======================================================`);
 });
 
