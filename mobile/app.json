@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "TerraLog Mobile Field App",
+    "slug": "terralog-field",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#0f172a"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Camera permission is required to capture site environment rig photos, specimen sample cards, and physical field log sheets.",
+        "NSPhotoLibraryUsageDescription": "Photo library access is needed to select saved field photos.",
+        "NSLocationWhenInUseUsageDescription": "Precise GPS location is required to geotag borehole investigation depths and sample logs."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0f172a"
+      },
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow TerraLog to record device GPS coordinates for borehole strata logs."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow TerraLog to access your camera to photograph drilling rigs, sample tag cards, and log sheets."
+        }
+      ]
+    ]
+  }
+}
+
