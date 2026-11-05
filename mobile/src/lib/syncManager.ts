@@ -116,7 +116,9 @@ export class SyncManagerService {
   private async uploadPayload(
     log: MobileQueuedLog
   ): Promise<{ success: boolean; remoteLogId?: string; xlsxUrl?: string; error?: string }> {
-    const backendUrl = 'http://localhost:4000'; // Or production OCR URL
+    // Default to the host PC's Wi-Fi IP so physical devices on Expo Go can connect directly
+    const backendUrl =
+      process.env.EXPO_PUBLIC_BACKEND_URL || 'http://192.168.1.37:4000';
 
     try {
       const formData = new FormData();
